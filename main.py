@@ -24,18 +24,18 @@ class Comparison:
         self.SymmetricalMatrix = self.SymmetricalMatrix.astype(int)
 
     def bb_time(self, index, iter):
-        BBAlgorithm = BranchAndBound(index, comparison.SymmetricalMatrix)
+        BBAlgorithm = BranchAndBound(index, self.SymmetricalMatrix)
         start = timer()
         BBAlgorithm.TSP()
         end = timer()
-        comparison.BranchAndBoundTime[iter] = end - start
+        self.BranchAndBoundTime[iter] = end - start
 
     def backtrack_time (self, index, iter):
-        BacktrackingAlgorithm = Backtracking(index, comparison.SymmetricalMatrix)
+        BacktrackingAlgorithm = Backtracking(index, self.SymmetricalMatrix)
         start = timer()
         BacktrackingAlgorithm.tsp(0, 1, 0)
         end = timer()
-        comparison.BacktrackingTime[iter] = end - start
+        self.BacktrackingTime[iter] = end - start
 
 
 if __name__ == "__main__":
