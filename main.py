@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 from timeit import default_timer as timer
-
+import matplotlib.pyplot as plt
 from naive import Naive
 from backtracking import Backtracking
 from branch_and_bound import BranchAndBound
@@ -11,7 +11,8 @@ class Comparison:
 
     def __init__(self):
         self.MinIteration = 3
-        self.MaxIteration = 12
+        self.MaxIteration = 11
+        self.IterationOfSizes = [i for i in range(self.MinIteration, self.MaxIteration)]
         self.CurrentMatrixSize = 0
         self.BranchAndBoundTime = np.zeros(self.MaxIteration - self.MinIteration)
         self.BacktrackingTime = np.zeros(self.MaxIteration - self.MinIteration)
@@ -46,6 +47,17 @@ class Comparison:
         end = timer()
         self.NaiveTime[iter] = end - start
 
+    def create_plot(self):
+        plt.title("TSP Algorithm's Comparison")
+        plt.xlabel("Square Matrix Dimension")
+        plt.ylabel("Time")
+        plt.grid()
+        plt.plot(self.IterationOfSizes, self.BranchAndBoundTime, label="Branch and Bound")
+        plt.plot(self.IterationOfSizes, self.BacktrackingTime, label="BackTracking")
+        plt.plot(self.IterationOfSizes, self.NaiveTime, label="Naive")
+        plt.legend(loc='upper left')
+        plt.show()
+
 
 if __name__ == "__main__":
     comparison = Comparison()
@@ -56,4 +68,5 @@ if __name__ == "__main__":
         comparison.backtrack_time(i, iteration)
         comparison.naive_time(i, iteration)
         iteration += 1
+    comparison.create_plot()
     sys.exit()
