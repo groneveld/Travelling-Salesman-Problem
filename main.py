@@ -2,11 +2,13 @@ import sys
 import numpy as np
 from timeit import default_timer as timer
 
+from naive import Naive
 from backtracking import Backtracking
 from branch_and_bound import BranchAndBound
 
 
 class Comparison:
+
     def __init__(self):
         self.MinIteration = 3
         self.MaxIteration = 12
@@ -37,6 +39,13 @@ class Comparison:
         end = timer()
         self.BacktrackingTime[iter] = end - start
 
+    def naive_time(self, index, iter):
+        NaiveAlgorithm = Naive(index, self.SymmetricalMatrix)
+        start = timer()
+        NaiveAlgorithm.travellingSalesmanProblem()
+        end = timer()
+        self.NaiveTime[iter] = end - start
+
 
 if __name__ == "__main__":
     comparison = Comparison()
@@ -45,7 +54,6 @@ if __name__ == "__main__":
         comparison.matrix_init(i)
         comparison.bb_time(i, iteration)
         comparison.backtrack_time(i, iteration)
+        comparison.naive_time(i, iteration)
         iteration += 1
-    print(comparison.BranchAndBoundTime)
-    print(comparison.BacktrackingTime)
     sys.exit()
