@@ -10,8 +10,8 @@ from branch_and_bound import BranchAndBound
 class Comparison:
 
     def __init__(self):
-        self.MinIteration = 3
-        self.MaxIteration = 11
+        self.MinIteration = 6
+        self.MaxIteration = 12
         self.IterationOfSizes = [i for i in range(self.MinIteration, self.MaxIteration)]
         self.CurrentMatrixSize = 0
         self.BranchAndBoundTime = np.zeros(self.MaxIteration - self.MinIteration)
@@ -56,6 +56,7 @@ class Comparison:
         plt.plot(self.IterationOfSizes, self.BacktrackingTime, label="BackTracking")
         plt.plot(self.IterationOfSizes, self.NaiveTime, label="Naive")
         plt.legend(loc='upper left')
+        plt.savefig("comparison_plt.png")
         plt.show()
 
 
